@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="lt" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Biscuit Kaunas — Rankų darbo tortai ir bento</title>
+  <meta name="description" content="Rankų darbo bento ir šventiniai tortai Kaune. Natūralūs ingredientai, kruopščiai paruošti įdarai ir individualus dekoras.">
+  <meta name="theme-color" content="#fbf8f6">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root { color-scheme: light; scroll-padding-top: 7rem; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fbf8f6; color: #4a3e3d; }
+    .font-serif-custom { font-family: 'Playfair Display', serif; }
+    .tab-btn.active { background-color: #8c6d62; color: #ffffff; }
+    .lang-btn.active { font-weight: 700; color: #8c6d62; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    .lang-btn { min-width: 1.75rem; min-height: 2rem; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #d5a39a; outline-offset: 3px; }
+    section[id] { scroll-margin-top: 7rem; }
+    .hero-section { background: radial-gradient(ellipse at 85% 20%, rgba(245, 220, 214, .42), transparent 38%); }
+    .hero-image { box-shadow: 0 18px 45px rgba(79, 56, 49, .12); }
+    .size-card, .flavor-card, .review-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .size-card:hover, .flavor-card:hover, .review-card:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(79, 56, 49, .08); }
+    .flavor-card p, #reviews p { font-size: .875rem; line-height: 1.65; }
+    .size-card li { font-size: .8125rem; line-height: 1.55; }
+    .order-dock { padding-bottom: max(.75rem, env(safe-area-inset-bottom)); }
+    @media (max-width: 639px) {
+      :root { scroll-padding-top: 10rem; }
+      section.hero-section { padding-top: 10rem; }
+      section[id] { scroll-margin-top: 10rem; }
+      .mobile-nav { justify-content: center; column-gap: 1.25rem; row-gap: 0; padding-top: .2rem; padding-bottom: .2rem; }
+      .mobile-nav a { min-height: 2.5rem; }
+      footer > div:first-child { column-gap: 1rem; row-gap: .75rem; }
+      footer { padding-bottom: 7rem !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-rose-100">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full z-40 bg-white/95 backdrop-blur-xl border-b border-rose-100 shadow-[0_4px_24px_rgba(74,62,61,0.04)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      <a href="#" class="text-lg sm:text-xl font-serif-custom font-semibold text-stone-800 leading-tight">
+        Sweet Biscuit <span class="text-[10px] tracking-widest text-rose-400 block font-sans font-light">KAUNAS</span>
+      </a>
+
+      <nav class="hidden lg:flex space-x-8 text-xs tracking-wider uppercase text-stone-600 font-medium">
+        <a href="#about" data-i18n="nav_about" class="hover:text-rose-500 transition">Apie mane</a>
+        <a href="#sizes" data-i18n="nav_sizes" class="hover:text-rose-500 transition">Dydžiai</a>
+        <a href="#flavors" data-i18n="nav_flavors" class="hover:text-rose-500 transition">Įdarai</a>
+        <a href="#reviews" data-i18n="nav_reviews" class="hover:text-rose-500 transition">Atsiliepimai</a>
+        <a href="#rules" data-i18n="nav_rules" class="hover:text-rose-500 transition">Sąlygos</a>
+      </nav>
+
+      <div class="flex items-center space-x-3">
+        <!-- Language Switcher -->
+        <div class="flex items-center space-x-1 text-xs text-stone-400 border-r border-stone-200 pr-2" role="group" aria-label="Choose language">
+          <button onclick="setLang('lt')" id="btn-lt" class="lang-btn active transition px-0.5" aria-pressed="true" aria-label="Lietuvių kalba">LT</button>
+          <span>/</span>
+          <button onclick="setLang('ru')" id="btn-ru" class="lang-btn transition px-0.5" aria-pressed="false" aria-label="Русский язык">RU</button>
+          <span>/</span>
+          <button onclick="setLang('en')" id="btn-en" class="lang-btn transition px-0.5" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+
+        <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" data-i18n="btn_order" class="hidden sm:inline-flex px-3 py-2 sm:px-4 sm:py-2.5 bg-stone-800 hover:bg-rose-900 text-white text-[11px] sm:text-xs tracking-wider uppercase rounded-full transition shadow-sm">
+          Užsakyti
+        </a>
+      </div>
+    </div>
+    <nav aria-label="Main navigation" class="mobile-nav lg:hidden max-w-6xl mx-auto px-4 flex flex-wrap items-center border-t border-stone-100 text-[10px] uppercase tracking-[.13em] text-stone-600">
+      <a href="#about" data-i18n="nav_about" class="shrink-0">Apie mane</a>
+      <a href="#sizes" data-i18n="nav_sizes" class="shrink-0">Dydžiai</a>
+      <a href="#flavors" data-i18n="nav_flavors" class="shrink-0">Įdarai</a>
+      <a href="#reviews" data-i18n="nav_reviews" class="shrink-0">Atsiliepimai</a>
+      <a href="#rules" data-i18n="nav_rules" class="shrink-0">Sąlygos</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section (Mobile Optimized) -->
+  <section class="hero-section pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div class="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+        <span class="inline-block px-3 py-1 bg-rose-100 text-rose-800 text-[10px] sm:text-xs tracking-widest uppercase rounded-full" data-i18n="hero_badge">
+          Kaunas • Bento ir Tortai
+        </span>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif-custom font-normal text-stone-900 leading-tight">
+          <span data-i18n="hero_t1">Estetiški tortai</span> <br>
+          <span class="italic font-light text-rose-800" data-i18n="hero_t2">su meile ir biochemijos tikslumu</span>
+        </h1>
+        <p class="max-w-md mx-auto lg:mx-0 text-xs sm:text-sm text-stone-600 leading-relaxed" data-i18n="hero_desc">
+          Rankų darbo bento tortai ir šventiniai tortai nuo 1.5 kg. Tik natūralūs ingredientai ir patikrinti receptai jūsų šventei.
+        </p>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+          <a href="#flavors" data-i18n="btn_menu" class="w-full sm:w-auto min-h-12 px-6 py-3 bg-stone-800 text-white text-xs uppercase tracking-wider rounded-full hover:bg-rose-900 transition text-center flex items-center justify-center">
+            Žiūrėti įdarus
+          </a>
+          <a href="#sizes" data-i18n="btn_calc" class="w-full sm:w-auto min-h-12 px-6 py-3 border border-stone-300 text-stone-700 text-xs uppercase tracking-wider rounded-full hover:border-stone-800 transition text-center flex items-center justify-center">
+            Pasirinkti dydį
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Images (img/ Folder Path) -->
+      <div class="lg:col-span-5 grid grid-cols-2 grid-rows-2 gap-3 sm:gap-4">
+        <img src="img/Cake3.jpg" alt="Šventinis tortas su meškiuku ir balionais" fetchpriority="high" class="hero-image row-span-2 w-full h-full min-h-72 sm:min-h-[32rem] object-cover rounded-[1.35rem] border-4 border-white">
+        <img src="img/Cake1.jpg" alt="Bento tortas su keksiukais" loading="lazy" class="hero-image w-full h-36 sm:h-60 object-cover rounded-[1.35rem] border-4 border-white">
+        <img src="img/Cake2.jpg" alt="Piratų tematikos gimtadienio tortas" loading="lazy" class="hero-image w-full h-36 sm:h-60 object-cover rounded-[1.35rem] border-4 border-white">
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 sm:py-20 px-4 sm:px-6 bg-white border-y border-stone-100">
+    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
+      <div class="md:col-span-5 max-w-sm mx-auto md:max-w-none">
+        <img src="img/Olya.jpg" alt="Olha Parfonova" class="w-full aspect-[4/5] object-cover rounded-3xl shadow-lg border-4 border-stone-50">
+      </div>
+      <div class="md:col-span-7 space-y-4 sm:space-y-6 text-center md:text-left">
+        <span class="text-xs uppercase tracking-widest text-rose-500 font-medium" data-i18n="about_tag">Apie mane</span>
+        <h2 class="text-2xl sm:text-3xl font-serif-custom text-stone-900" data-i18n="about_title">Labas! Aš Olha</h2>
+        <p class="text-xs sm:text-sm text-stone-600 leading-relaxed" data-i18n="about_text">
+          Pagal išsilavinimą esu biochemikė, todėl puikiai suprantu visus procesus ir ingredientų sąveiką. Tortams renkuosi tik aukščiausios kokybės produktus — tikrą sviestą, grietinėlę ir natūralias uogas. Kiekvieną receptą esu ištobulinusi ir patikrinusi su savo šeima!
+        </p>
+        <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-4 border-t border-stone-100 text-center">
+          <div>
+            <p class="text-xl sm:text-2xl font-serif-custom text-stone-900">100%</p>
+            <p class="text-[9px] sm:text-[10px] uppercase text-stone-400" data-i18n="stat_1">Natūralu</p>
+          </div>
+          <div>
+            <p class="text-xl sm:text-2xl font-serif-custom text-stone-900">15+</p>
+            <p class="text-[9px] sm:text-[10px] uppercase text-stone-400" data-i18n="stat_2">Įdarų</p>
+          </div>
+          <div>
+            <p class="text-xl sm:text-2xl font-serif-custom text-stone-900">S–XL</p>
+            <p class="text-[9px] sm:text-[10px] uppercase text-stone-400" data-i18n="stat_3">Dydžiai</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sizes Section -->
+  <section id="sizes" class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="text-center max-w-lg mx-auto mb-10 sm:mb-16">
+      <span class="text-xs uppercase tracking-widest text-rose-500 font-medium" data-i18n="size_sub">Formatas ir svoris</span>
+      <h2 class="text-2xl sm:text-3xl font-serif-custom text-stone-900 mt-2" data-i18n="size_title">Pasirinkite torto dydį</h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <!-- Bento S -->
+    <div class="size-card bg-white p-5 sm:p-6 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-stone-400">1-2 asm.</span>
+          <h3 class="text-lg sm:text-xl font-serif-custom text-stone-900 mt-1">Bento S</h3>
+          <p class="text-2xl font-light text-rose-800 mt-2">18 €</p>
+          <ul class="mt-4 space-y-2 text-xs text-stone-500">
+            <li>• Svoris: 400-450 g</li>
+            <li>• Skersmuo: 10.5-11 cm</li>
+            <li>• Aukštis: 4.5-5 cm</li>
+          </ul>
+        </div>
+        <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" data-i18n="btn_choose" class="mt-6 w-full py-2.5 bg-stone-100 hover:bg-stone-800 hover:text-white text-stone-800 text-xs text-center uppercase tracking-wider rounded-xl transition font-medium">Pasirinkti</a>
+      </div>
+
+      <!-- Bento M -->
+      <div class="size-card bg-white p-5 sm:p-6 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-stone-400">3-4 asm.</span>
+          <h3 class="text-lg sm:text-xl font-serif-custom text-stone-900 mt-1">Bento M</h3>
+          <p class="text-2xl font-light text-rose-800 mt-2">21 €</p>
+          <ul class="mt-4 space-y-2 text-xs text-stone-500">
+            <li>• Svoris: 600-650 g</li>
+            <li>• Skersmuo: 12.5-13 cm</li>
+            <li>• Aukštis: 6.5-7 cm</li>
+          </ul>
+        </div>
+        <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" data-i18n="btn_choose" class="mt-6 w-full py-2.5 bg-stone-100 hover:bg-stone-800 hover:text-white text-stone-800 text-xs text-center uppercase tracking-wider rounded-xl transition font-medium">Pasirinkti</a>
+      </div>
+
+      <!-- Bento XL -->
+      <div class="size-card bg-white p-5 sm:p-6 rounded-2xl border border-rose-300 shadow-sm flex flex-col justify-between relative">
+        <div class="absolute -top-3 right-4 bg-rose-100 text-rose-800 px-3 py-0.5 text-[9px] uppercase tracking-widest rounded-full font-medium">Populiaru</div>
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-stone-400">5-6 asm.</span>
+          <h3 class="text-lg sm:text-xl font-serif-custom text-stone-900 mt-1">Bento XL</h3>
+          <p class="text-2xl font-light text-rose-800 mt-2">32 €</p>
+          <ul class="mt-4 space-y-2 text-xs text-stone-500">
+            <li>• Svoris: 1.0-1.1 kg</li>
+            <li>• Skersmuo: 14.5-15 cm</li>
+            <li>• Aukštis: 8.5-9.5 cm</li>
+          </ul>
+        </div>
+        <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" data-i18n="btn_choose" class="mt-6 w-full py-2.5 bg-stone-800 text-white text-xs text-center uppercase tracking-wider rounded-xl hover:bg-rose-900 transition font-medium">Pasirinkti</a>
+      </div>
+
+      <!-- Standard 1.5kg+ -->
+      <div class="size-card bg-white p-5 sm:p-6 rounded-2xl border border-stone-200/80 shadow-sm flex flex-col justify-between">
+        <div>
+          <span class="text-[10px] uppercase tracking-widest text-stone-400">7-8+ asm.</span>
+          <h3 class="text-lg sm:text-xl font-serif-custom text-stone-900 mt-1">Tortas nuo 1.5 kg</h3>
+          <p class="text-2xl font-light text-rose-800 mt-2">nuo 45 €</p>
+          <ul class="mt-4 space-y-2 text-xs text-stone-500">
+            <li>• Svoris: nuo 1.5 kg</li>
+            <li>• Kaina: 30–34 €/kg</li>
+            <li>• Individualus dekoras</li>
+          </ul>
+        </div>
+        <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" data-i18n="btn_choose" class="mt-6 w-full py-2.5 bg-stone-100 hover:bg-stone-800 hover:text-white text-stone-800 text-xs text-center uppercase tracking-wider rounded-xl transition font-medium">Pasirinkti</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flavors Section -->
+  <section id="flavors" class="py-16 sm:py-20 px-4 sm:px-6 bg-white border-t border-stone-100">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-rose-500 font-medium" data-i18n="flv_sub">Mūsų meniu</span>
+          <h2 class="text-2xl sm:text-3xl font-serif-custom text-stone-900 mt-2" data-i18n="flv_title">Tortų įdarai</h2>
+        </div>
+        
+        <!-- Filters -->
+        <div class="flex flex-nowrap gap-2 mt-4 md:mt-0 max-w-full overflow-x-auto pb-2">
+          <button onclick="filterFlavors('all', this)" aria-pressed="true" class="tab-btn active shrink-0 min-h-10 px-4 py-2 rounded-full text-xs font-medium transition" data-i18n="f_all">Visi</button>
+          <button onclick="filterFlavors('bento', this)" aria-pressed="false" class="tab-btn shrink-0 min-h-10 px-4 py-2 bg-stone-100 text-stone-600 rounded-full text-xs font-medium transition hover:bg-stone-200" data-i18n="f_bento">Bento ir 1.5kg</button>
+          <button onclick="filterFlavors('kg', this)" aria-pressed="false" class="tab-btn shrink-0 min-h-10 px-4 py-2 bg-stone-100 text-stone-600 rounded-full text-xs font-medium transition hover:bg-stone-200" data-i18n="f_kg">Nuo 2 kg</button>
+        </div>
+      </div>
+
+      <!-- Flavor Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        
+        <!-- Snickers -->
+        <div class="flavor-card bg-stone-50 p-5 rounded-2xl border border-stone-100" data-type="bento">
+          <div class="flex justify-between items-start">
+            <h3 class="text-base sm:text-lg font-serif-custom text-stone-900">Snikers</h3>
+            <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-medium">32 €/kg</span>
+          </div>
+          <p class="text-xs text-stone-500 mt-2">Šokoladinis biskvitas, karamelinis kremas, žemės riešutų karamelė ir riešutai.</p>
+        </div>
+
+        <!-- Raffaello -->
+        <div class="flavor-card bg-stone-50 p-5 rounded-2xl border border-stone-100" data-type="bento">
+          <div class="flex justify-between items-start">
+            <h3 class="text-base sm:text-lg font-serif-custom text-stone-900">Raffaello</h3>
+            <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-medium">32 €/kg</span>
+          </div>
+          <p class="text-xs text-stone-500 mt-2">Kokosinis biskvitas, kokosinis kremas, traškus sluoksnis su smulkintais migdolais.</p>
+        </div>
+
+        <!-- Red Velvet -->
+        <div class="flavor-card bg-stone-50 p-5 rounded-2xl border border-stone-100" data-type="bento">
+          <div class="flex justify-between items-start">
+            <h3 class="text-base sm:text-lg font-serif-custom text-stone-900">Raudonasis aksomas</h3>
+            <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-medium">30 €/kg</span>
+          </div>
+          <p class="text-xs text-stone-500 mt-2">Ryškus biskvitas su šokolado nata, cream-cheese kremas, avietės arba braškės.</p>
+        </div>
+
+        <!-- Pistachio Raspberry -->
+        <div class="flavor-card bg-stone-50 p-5 rounded-2xl border border-stone-100" data-type="kg">
+          <div class="flex justify-between items-start">
+            <h3 class="text-base sm:text-lg font-serif-custom text-stone-900">Fistaška – avietė</h3>
+            <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-medium">32 €/kg</span>
+          </div>
+          <p class="text-xs text-stone-500 mt-2">Pistacijų biskvitas, pistacijų krem čiz, avietės, Baileys likerio pertepimas.</p>
+        </div>
+
+        <!-- McFlurry Ice Cream -->
+        <div class="flavor-card bg-stone-50 p-5 rounded-2xl border border-stone-100" data-type="kg">
+          <div class="flex justify-between items-start">
+            <h3 class="text-base sm:text-lg font-serif-custom text-stone-900">McFlurry Ledai</h3>
+            <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-medium">32 €/kg</span>
+          </div>
+          <p class="text-xs text-stone-500 mt-2">Šokoladinis biskvitas, šokoladinis padažas, putėsių sluoksnis su traškiais rutuliukais.</p>
+        </div>
+
+        <!-- Bueno Nutella -->
+        <div class="flavor-card bg-stone-50 p-5 rounded-2xl border border-stone-100" data-type="kg">
+          <div class="flex justify-between items-start">
+            <h3 class="text-base sm:text-lg font-serif-custom text-stone-900">Bueno – Nutella</h3>
+            <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-medium">34 €/kg</span>
+          </div>
+          <p class="text-xs text-stone-500 mt-2">Šokoladinis biskvitas, traškus lazdyno riešutų sluoksnis, Nutella kremas ir praline.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section (Added Real Reviews + Instagram Link) -->
+  <section id="reviews" class="py-16 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
+    <div class="text-center max-w-lg mx-auto mb-10">
+      <span class="text-xs uppercase tracking-widest text-rose-500 font-medium" data-i18n="rev_sub">Atsiliepimai</span>
+      <h2 class="text-2xl sm:text-3xl font-serif-custom text-stone-900 mt-2" data-i18n="rev_title">Ką sako mūsų klientai</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Real Review 1 -->
+      <div class="review-card bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm relative">
+        <div class="flex items-center space-x-1 text-amber-400 mb-3 text-sm">
+          ★ ★ ★ ★ ★
+        </div>
+        <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic" data-i18n="rev1_text">
+          «Хочу сказать вам огромное спасибо за ваши тортики — они просто нереально вкусные 😍. Мой муж от них в полном восторге, каждый раз просит заказывать именно у вас 😊.»
+        </p>
+        <span class="text-[10px] uppercase tracking-wider text-stone-400 block mt-4" data-i18n="rev1_author">— Klientė Kaune</span>
+      </div>
+
+      <!-- Real Review 2 -->
+      <div class="review-card bg-white p-6 rounded-2xl border border-stone-200/80 shadow-sm relative">
+        <div class="flex items-center space-x-1 text-amber-400 mb-3 text-sm">
+          ★ ★ ★ ★ ★
+        </div>
+        <p class="text-xs sm:text-sm text-stone-700 leading-relaxed italic" data-i18n="rev2_text">
+          «Спасибо ещё раз за тортик 🥰. Всем понравился, и дизайн, и вкус)) Меня тоже заставили съесть кусочек 😩. Поэтому подтверждаю, торт вкуснотища 🤤.»
+        </p>
+        <span class="text-[10px] uppercase tracking-wider text-stone-400 block mt-4" data-i18n="rev2_author">— Atsiliepimas «Mango-Avietė»</span>
+      </div>
+
+    </div>
+
+    <!-- More Reviews Button (Instagram Link) -->
+    <div class="text-center mt-8">
+      <a href="https://www.instagram.com/sweet_biscuit_kaunas?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="inline-flex max-w-full items-center justify-center gap-2 px-6 py-3 border border-stone-300 hover:border-rose-500 text-stone-800 text-xs uppercase tracking-wider rounded-full transition">
+        <i data-lucide="camera" class="w-4 h-4 text-rose-500"></i><span data-i18n="btn_more_rev">Daugiau atsiliepimų Instagram</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Rules & Pickup Section -->
+  <section id="rules" class="py-16 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
+    <div class="bg-stone-900 text-white rounded-3xl p-6 sm:p-12 shadow-xl">
+      <div class="max-w-xl">
+        <span class="text-xs uppercase tracking-widest text-rose-300 font-medium" data-i18n="rule_tag">Svarbi informacija</span>
+        <h2 class="text-2xl sm:text-3xl font-serif-custom mt-2 mb-6" data-i18n="rule_title">Užsakymo ir atsiėmimo taisyklės</h2>
+        
+        <div class="space-y-5 text-xs sm:text-sm text-stone-300">
+          <div class="flex items-start gap-3 sm:gap-4">
+            <div class="w-7 h-7 rounded-full bg-stone-800 flex items-center justify-center text-rose-300 font-semibold shrink-0 text-xs">1</div>
+            <div>
+              <h4 class="font-medium text-white" data-i18n="r1_t">Atsiėmimo laikas</h4>
+              <p class="text-xs text-stone-400 mt-1" data-i18n="r1_d">Pirmadienis – Penktadienis nuo 10:00 iki 21:00 pagal išankstinį susitarimą. Pristatymas derinamas asmeniškai.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 sm:gap-4">
+            <div class="w-7 h-7 rounded-full bg-stone-800 flex items-center justify-center text-rose-300 font-semibold shrink-0 text-xs">2</div>
+            <div>
+              <h4 class="font-medium text-white" data-i18n="r2_t">Šeštadienis — Išeiginė</h4>
+              <p class="text-xs text-stone-400 mt-1" data-i18n="r2_d">Jei tortas reikalingas šeštadieniui, jį galite atsiimti penktadienį vakare nuo 18:00 iki 21:00.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 sm:gap-4">
+            <div class="w-7 h-7 rounded-full bg-stone-800 flex items-center justify-center text-rose-300 font-semibold shrink-0 text-xs">3</div>
+            <div>
+              <h4 class="font-medium text-white" data-i18n="r3_t">Sekmadienis</h4>
+              <p class="text-xs text-stone-400 mt-1" data-i18n="r3_d">Atsiėmimas nuo 11:00 valandos pagal išankstinį susitarimą.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span class="text-xs text-stone-400 text-center sm:text-left" data-i18n="rule_note">Užsakymą rekomenduojame pateikti prieš 3-5 dienas</span>
+          <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" data-i18n="btn_order" class="w-full sm:w-auto px-6 py-3 bg-rose-200 hover:bg-white text-stone-900 text-xs text-center uppercase tracking-wider font-medium rounded-full transition">
+            Parašyti į Telegram
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer with Social Links (Instagram & Facebook Added) -->
+  <footer class="py-10 px-4 sm:px-6 border-t border-stone-200 bg-white text-center text-xs text-stone-500">
+    <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 mb-4">
+      <a href="https://www.instagram.com/sweet_biscuit_kaunas?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="hover:text-rose-600 transition flex items-center gap-1.5">
+        <i data-lucide="camera" class="w-4 h-4"></i> Instagram
+      </a>
+      <a href="https://www.facebook.com/profile.php?id=100006322062669&mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer" class="hover:text-rose-600 transition flex items-center gap-1.5">
+        <span aria-hidden="true" class="w-4 h-4 rounded-sm bg-current text-white font-bold text-center leading-4">f</span> Facebook
+      </a>
+      <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" class="hover:text-rose-600 transition flex items-center gap-1.5">
+        <i data-lucide="send" class="w-4 h-4"></i> Telegram
+      </a>
+    </div>
+    © 2026 Sweet Biscuit Kaunas. Rankų darbo tortai ir bento Kaune.
+  </footer>
+
+  <div class="order-dock sm:hidden fixed bottom-0 inset-x-0 z-40 px-4 pt-3 bg-white/95 backdrop-blur-xl border-t border-rose-100">
+    <a href="https://t.me/OlhaParfonova" target="_blank" rel="noopener noreferrer" class="min-h-12 flex items-center justify-center gap-2 rounded-full bg-stone-800 text-white text-xs uppercase tracking-[.14em] font-semibold shadow-lg">
+      <i data-lucide="send" class="w-4 h-4"></i><span data-i18n="btn_order">Užsakyti</span>
+    </a>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    const i18n = {
+      lt: {
+        nav_about: "Apie mane", nav_sizes: "Dydžiai", nav_flavors: "Įdarai", nav_reviews: "Atsiliepimai", nav_rules: "Sąlygos", btn_order: "Užsakyti",
+        hero_badge: "Kaunas • Bento ir Tortai", hero_t1: "Estetiški tortai", hero_t2: "su meile ir biochemijos tikslumu",
+        hero_desc: "Rankų darbo bento tortai ir šventiniai tortai nuo 1.5 kg. Tik natūralūs ingredientai ir patikrinti receptai jūsų šventei.",
+        btn_menu: "Žiūrėti įdarus", btn_calc: "Pasirinkti dydį", about_tag: "Apie mane", about_title: "Labas! Aš Olha",
+        about_text: "Pagal išsilavinimą esu biochemikė, todėl puikiai suprantu visus procesus ir ingredientų sąveiką. Tortams renkuosi tik aukščiausios kokybės produktus — tikrą sviestą, grietinėlę ir natūralias uogas. Kiekvieną receptą esu ištobulinusi ir patikrinusi su savo šeima!",
+        stat_1: "Natūralu", stat_2: "Įdarų", stat_3: "Dydžiai", size_sub: "Formatas ir svoris", size_title: "Pasirinkite torto dydį",
+        btn_choose: "Pasirinkti", flv_sub: "Mūsų meniu", flv_title: "Tortų įdarai", f_all: "Visi", f_bento: "Bento ir 1.5kg", f_kg: "Nuo 2 kg",
+        rev_sub: "Atsiliepimai", rev_title: "Ką sako mūsų klientai", btn_more_rev: "Daugiau atsiliepimų Instagram",
+        rev1_text: "«Noriu jums labai padėkoti už jūsų tortukus – jie tiesiog nepaprastai skanūs 😍. Mano vyras jais be galo džiaugiasi ir kaskart prašo užsakyti būtent iš jūsų 😊.»",
+        rev2_text: "«Dar kartą ačiū už tortuką 🥰. Visiems patiko ir dizainas, ir skonis! Mane irgi privertė suvalgyti gabalėlį 😩. Patvirtinu – tortas be galo skanus 🤤.»",
+        rev1_author: "— Klientė iš Kauno", rev2_author: "— Atsiliepimas apie „Mangas–avietes“",
+        rule_tag: "Svarbi informacija", rule_title: "Užsakymo ir atsiėmimo taisyklės", r1_t: "Atsiėmimo laikas",
+        r1_d: "Pirmadienis – Penktadienis nuo 10:00 iki 21:00 pagal išankstinį susitarimą. Pristatymas derinamas asmeniškai.",
+        r2_t: "Šeštadienis — Išeiginė", r2_d: "Jei tortas reikalingas šeštadieniui, jį galite atsiimti penktadienį vakare nuo 18:00 iki 21:00.",
+        r3_t: "Sekmadienis", r3_d: "Atsiėmimas nuo 11:00 valandos pagal išankstinį susitarimą.",
+        rule_note: "Užsakymą rekomenduojame pateikti prieš 3-5 dienas"
+      },
+      ru: {
+        nav_about: "Обо мне", nav_sizes: "Размеры", nav_flavors: "Начинки", nav_reviews: "Отзывы", nav_rules: "Условия", btn_order: "Заказать",
+        hero_badge: "Каунас • Бенто и Торты", hero_t1: "Эстетичные торты", hero_t2: "с любовью и точностью биохимии",
+        hero_desc: "Авторские бенто-торты и праздничные торты от 1.5 кг. Только натуральные ингредиенты и проверенные рецепты.",
+        btn_menu: "Смотреть начинки", btn_calc: "Выбрать размер", about_tag: "Обо мне", about_title: "Привет! Я Оля",
+        about_text: "По образованию я биохимик, поэтому досконально понимаю химические процессы и взаимодействие ингредиентов. Для тортов выбираю только продукты лучшего качества — натуральное масло, сливки и ягоды. Каждый рецепт отработан и проверен на моей семье!",
+        stat_1: "Натурально", stat_2: "Начинок", stat_3: "Размеры", size_sub: "Формат и вес", size_title: "Выберите размер торта",
+        btn_choose: "Выбрать", flv_sub: "Наше меню", flv_title: "Начинки тортов", f_all: "Все", f_bento: "Бенто и 1.5кг", f_kg: "От 2 кг",
+        rev_sub: "Отзывы", rev_title: "Что говорят клиенты", btn_more_rev: "Больше отзывов в Instagram",
+        rev1_text: "«Хочу сказать вам огромное спасибо за ваши тортики — они просто нереально вкусные 😍. Мой муж от них в полном восторге, каждый раз просит заказывать именно у вас 😊.»",
+        rev2_text: "«Спасибо ещё раз за тортик 🥰. Всем понравился, и дизайн, и вкус)) Меня тоже заставили съесть кусочек 😩. Поэтому подтверждаю, торт вкуснотища 🤤.»",
+        rev1_author: "— Клиентка из Каунаса", rev2_author: "— Отзыв о торте «Манго–малина»",
+        rule_tag: "Важная информация", rule_title: "Правила заказа и выдачи", r1_t: "Время выдачи",
+        r1_d: "Понедельник – Пятница с 10:00 до 21:00 по предварительной договоренности. Доставка обсуждается индивидуально.",
+        r2_t: "Суббота — Выходной", r2_d: "Если тортик нужен на субботу, забрать его можно в пятницу вечером с 18:00 до 21:00.",
+        r3_t: "Воскресенье", r3_d: "Выдача заказов с 11:00 по предварительной договоренности.",
+        rule_note: "Рекомендуем делать заказ за 3-5 дней"
+      },
+      en: {
+        nav_about: "About", nav_sizes: "Sizes", nav_flavors: "Flavors", nav_reviews: "Reviews", nav_rules: "Terms", btn_order: "Order",
+        hero_badge: "Kaunas • Bento & Cakes", hero_t1: "Aesthetic cakes", hero_t2: "baked with love & precision",
+        hero_desc: "Handcrafted bento cakes and celebration cakes from 1.5 kg. Only natural ingredients and tested family recipes.",
+        btn_menu: "View Flavors", btn_calc: "Choose Size", about_tag: "About me", about_title: "Hi! I am Olha",
+        about_text: "I am a biochemist by background, so I understand the ingredient interactions precisely. I select only the finest natural cream, butter, and fresh berries for your cakes.",
+        stat_1: "Natural", stat_2: "Flavors", stat_3: "Sizes", size_sub: "Format & Weight", size_title: "Select Cake Size",
+        btn_choose: "Select", flv_sub: "Our Menu", flv_title: "Cake Flavors", f_all: "All", f_bento: "Bento & 1.5kg", f_kg: "From 2 kg",
+        rev_sub: "Reviews", rev_title: "What clients say", btn_more_rev: "More reviews on Instagram",
+        rev1_text: "«Thank you so much for your cakes — they’re unbelievably delicious 😍. My husband absolutely loves them and asks me to order from you every time 😊.»",
+        rev2_text: "«Thanks again for the cake 🥰. Everyone loved both the design and the taste! They even made me try a piece 😩. I can confirm: it was absolutely delicious 🤤.»",
+        rev1_author: "— Customer from Kaunas", rev2_author: "— Review of the “Mango–Raspberry” cake",
+        rule_tag: "Important Info", rule_title: "Order & Pickup Terms", r1_t: "Pickup Hours",
+        r1_d: "Monday – Friday 10:00 to 21:00 by agreement.",
+        r2_t: "Saturday — Day Off", r2_d: "If needed for Saturday, pick up Friday evening 18:00 to 21:00.",
+        r3_t: "Sunday", r3_d: "Pickup from 11:00 by prior agreement.",
+        rule_note: "We recommend booking 3-5 days in advance"
+      }
+    };
+
+    function setLang(lang) {
+      if (!i18n[lang]) return;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-btn').forEach(button => {
+        const isActive = button.id === `btn-${lang}`;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key]) el.textContent = i18n[lang][key];
+      });
+    }
+
+    function filterFlavors(type, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        const isActive = b === btn;
+        b.classList.toggle('active', isActive);
+        b.classList.toggle('bg-stone-100', !isActive);
+        b.classList.toggle('text-stone-600', !isActive);
+        b.setAttribute('aria-pressed', String(isActive));
+      });
+
+      document.querySelectorAll('.flavor-card').forEach(card => {
+        card.hidden = type !== 'all' && card.dataset.type !== type;
+      });
+    }
+  </script>
+</body>
+</html>
